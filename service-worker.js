@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "https//www.legoboyjr.github.io/boredless/precache-manifest.323ac2dae34f97d627212ed909061a1c.js"
+  "/boredless/precache-manifest.81dbbcff71b4d425e7274818ff92d720.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("https//www.legoboyjr.github.io/boredless/index.html", {
+workbox.routing.registerNavigationRoute("/boredless/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
