@@ -13,7 +13,8 @@ class App extends Component {
     super(prop);
     this.state = {
       modalOpen: false,
-      activity: ''
+      activity: '',
+      error: null
     }
     this.handleModalOpen = this.handleModalOpen.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
@@ -28,14 +29,20 @@ class App extends Component {
       const { activity } = response.data;
       this.setState({
         modalOpen: true,
-        activity: activity
+        activity: activity,
+        error: null
       });
   })
-    .catch(err => {});
+    .catch(err => { 
+      this.setState({
+        error: err
+      });
+    });
   }
   render() {
     return (
-      <div className="vh-100 bg-black flex justify-center items-center">
+      <div className="vh-100 bg-black flex-column flex justify-center items-center">
+      { this.state.error && <div className="bg-white red f4 mb4 h4 w4">Error: {this.state.error && this.state.error.message} </div>}
         <button className="f1 outline-transparent dim ph3 pv2 mb2 dib white bg-black b--none br-100 h5 w5 bg-blue"
         onClick={this.handleModalOpen}>
         Bored?
