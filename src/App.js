@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import Modal from "react-modal";
 import './App.css';
+import axios from 'axios';
 
 const appElement = document.getElementById('root');
 Modal.setAppElement(appElement);
 
+//bored api
+const BORED_API = '/activity';
 class App extends Component {
   constructor(prop) {
     super(prop);
     this.state = {
-      modalOpen: false
+      modalOpen: false,
+      activity: ''
     }
     this.handleModalOpen = this.handleModalOpen.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
@@ -19,7 +23,15 @@ class App extends Component {
   }
 
   handleModalOpen(){
-    this.setState({modalOpen: true});
+    axios.get(BORED_API)
+    .then(response => {
+      const { activity } = response.data;
+      this.setState({
+        modalOpen: true,
+        activity: activity
+      });
+  })
+    .catch(err => {});
   }
   render() {
     return (
@@ -29,15 +41,18 @@ class App extends Component {
         Bored?
         </button>
         <Modal closeTimeoutMS={150} isOpen={this.state.modalOpen}>
+        <div className="flex flex-column h-100">
           <header className="flex justify-end">
-            <button onClick={this.handleModalClose}>X</button>
+            <button className="f1 ph3 pv2 mb2 dib white bg-black b--none" onClick={this.handleModalClose}>X</button>
           </header>
-          <main>
-            <h1>Look a modal!</h1>
+          <main className="flex flex-column justify-center items-center flex-grow-1">
+            <h1>Here is something you can do</h1>
+            <p>{this.state.activity}</p>
           </main>
           <footer>
             <h2>Nothing to see here...</h2>
           </footer>
+         </div>
         </Modal>
       </div>
     );
